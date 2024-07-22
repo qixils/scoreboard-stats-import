@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "dev.qixils.ssi.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+      "ScoreboardCommandMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

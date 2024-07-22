@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "scoreboard-stats-import",
+	"version": "${version}",
+	"name": "Scoreboard Stats Import",
+	"description": "Imports prior statistics upon creation of a new statistic scoreboard.",
+	"authors": [
+		"qixils"
+	],
+	"contact": {
+		"sources": "https://github.com/qixils/scoreboard-stats-import"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/scoreboard-stats-import/icon.png",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			"dev.qixils.ssi.ScoreboardStatsImport"
+		]
+	},
+	"mixins": [
+		"scoreboard-stats-import.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
