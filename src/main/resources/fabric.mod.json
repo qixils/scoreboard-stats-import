@@ -3,7 +3,7 @@
 	"id": "scoreboard-stats-import",
 	"version": "${version}",
 	"name": "Scoreboard Stats Import",
-	"description": "Imports prior statistics upon creation of a new statistic scoreboard.",
+	"description": "Imports prior statistics upon creation of a new scoreboard objective",
 	"authors": [
 		"qixils"
 	],
