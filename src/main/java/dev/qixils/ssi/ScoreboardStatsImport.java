@@ -2,14 +2,13 @@ package dev.qixils.ssi;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
-import com.mojang.authlib.yggdrasil.ProfileResult;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.scoreboard.ScoreHolder;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.scoreboard.ScoreboardObjective;
+import net.minecraft.scoreboard.ScoreboardPlayerScore;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.stat.ServerStatHandler;
@@ -59,18 +58,19 @@ public class ScoreboardStatsImport implements ModInitializer {
 					GameProfile gameProfile = server.getUserCache().getByUuid(uuid)
 							.or(() -> {
 								if (webResults.containsKey(uuid)) return Optional.ofNullable(webResults.get(uuid));
-								var profile = Optional.ofNullable(sessionService.fetchProfile(uuid, false)).map(ProfileResult::profile);
-								webResults.put(uuid, profile.orElse(null));
-								return profile;
+								var profile = sessionService.fillProfileProperties(new GameProfile(uuid, null), true);
+								webResults.put(uuid, profile);
+								return Optional.of(profile);
 							})
 							.orElse(null);
 					if (gameProfile == null) return;
 
-					ServerStatHandler handler = new ServerStatHandler(server, statsFile.toFile());
-					int value = handler.getStat(stat);
+					var name = gameProfile.getName();
+					if (name == null) return;
 
-					var holder = ScoreHolder.fromProfile(gameProfile);
-					var score = scoreboard.getOrCreateScore(holder, objective, true);
+					var handler = new ServerStatHandler(server, statsFile.toFile());
+					int value = handler.getStat(stat);
+					var score = scoreboard.getPlayerScore(name, objective);
 					score.setScore(value);
 				});
 

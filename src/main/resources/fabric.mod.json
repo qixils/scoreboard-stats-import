@@ -12,7 +12,7 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/scoreboard-stats-import/icon.png",
-	"environment": "server",
+	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"dev.qixils.ssi.ScoreboardStatsImport"
@@ -23,7 +23,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
-		"minecraft": ">=1.20.3",
+		"minecraft": ">=1.20.1 <1.20.3",
 		"java": ">=21",
 		"fabric-api": "*"
 	}
